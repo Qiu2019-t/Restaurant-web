@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年度收支报表 - 餐饮收支管理</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="glass-panel header">
+            <div class="logo-area">
+                <a href="index.html" class="back-link"><i class="ri-arrow-left-line"></i></a>
+                <div class="report-title">
+                    <h1>年度收支报表</h1>
+                    <select id="year-select" class="year-select">
+                        <!-- Years will be improved by JS -->
+                        <option value="2026">2026年</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Yearly Summary -->
+            <section class="summary-cards">
+                <div class="glass-card income-card">
+                    <div class="card-icon"><i class="ri-calendar-check-fill"></i></div>
+                    <div class="card-info">
+                        <h3>年度总收入</h3>
+                        <p class="amount" id="year-total-income">¥0.00</p>
+                    </div>
+                </div>
+                <div class="glass-card expense-card">
+                    <div class="card-icon"><i class="ri-calendar-close-fill"></i></div>
+                    <div class="card-info">
+                        <h3>年度总支出</h3>
+                        <p class="amount" id="year-total-expense">¥0.00</p>
+                    </div>
+                </div>
+                <div class="glass-card balance-card">
+                    <div class="card-icon"><i class="ri-scales-3-fill"></i></div>
+                    <div class="card-info">
+                        <h3>年度净利</h3>
+                        <p class="amount" id="year-net-profit">¥0.00</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Grid -->
+            <div class="content-split report-grid">
+                <!-- Monthly Trend -->
+                <section class="glass-panel chart-section full-width">
+                    <div class="section-header">
+                        <h2>月度收支趋势</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Category Breakdown -->
+                <section class="glass-panel chart-section">
+                    <div class="section-header">
+                        <h2>支出分类占比</h2>
+                    </div>
+                    <div class="chart-container pie-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Income Breakdown -->
+                <section class="glass-panel chart-section">
+                    <div class="section-header">
+                        <h2>收入来源占比</h2>
+                    </div>
+                    <div class="chart-container pie-container">
+                        <canvas id="incomeCategoryChart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

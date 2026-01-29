@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐饮收支管理</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="glass-panel header">
+            <div class="logo-area">
+                <i class="ri-restaurant-2-line logo-icon"></i>
+                <div>
+                    <h1>餐饮收支管理</h1>
+                    <p class="subtitle">财务概览 & 趋势分析</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="annual_report.html" class="btn btn-text"
+                    style="color: var(--text-primary); text-decoration: none; margin-right: 1rem;">
+                    <i class="ri-bar-chart-groupted-line"></i> 年度报表
+                </a>
+                <button id="add-btn" class="btn btn-primary">
+                    <i class="ri-add-line"></i> 记一笔
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="glass-card income-card">
+                    <div class="card-icon"><i class="ri-arrow-up-circle-fill"></i></div>
+                    <div class="card-info">
+                        <h3>今日收入</h3>
+                        <p class="amount" id="today-income">¥0.00</p>
+                    </div>
+                </div>
+                <div class="glass-card expense-card">
+                    <div class="card-icon"><i class="ri-arrow-down-circle-fill"></i></div>
+                    <div class="card-info">
+                        <h3>今日支出</h3>
+                        <p class="amount" id="today-expense">¥0.00</p>
+                    </div>
+                </div>
+                <div class="glass-card balance-card">
+                    <div class="card-icon"><i class="ri-wallet-3-fill"></i></div>
+                    <div class="card-info">
+                        <h3>本年利润</h3>
+                        <p class="amount" id="year-balance">¥0.00</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Area -->
+            <div class="content-split">
+                <!-- Charts Section -->
+                <section class="glass-panel chart-section">
+                    <div class="section-header">
+                        <h2>收支趋势</h2>
+                        <div class="chart-controls">
+                            <!-- Toggle buttons could go here -->
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Recent Transactions -->
+                <section class="glass-panel transactions-section">
+                    <div class="section-header">
+                        <h2>近期明细</h2>
+                        <button class="btn btn-text">查看全部</button>
+                    </div>
+                    <div class="transactions-list" id="transactions-list">
+                        <!-- Items will be injected here via JS -->
+                        <div class="empty-state">
+                            <i class="ri-file-list-3-line"></i>
+                            <p>暂无收支记录</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Form -->
+    <div id="transaction-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h2>新增记录</h2>
+                <button id="close-modal" class="btn-icon"><i class="ri-close-line"></i></button>
+            </div>
+            <form id="transaction-form">
+                <div class="form-group type-selector">
+                    <input type="radio" name="type" id="type-income" value="income" checked>
+                    <label for="type-income" class="type-label income"><i class="ri-arrow-up-circle-line"></i>
+                        收入</label>
+
+                    <input type="radio" name="type" id="type-expense" value="expense">
+                    <label for="type-expense" class="type-label expense"><i class="ri-arrow-down-circle-line"></i>
+                        支出</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">金额 (¥)</label>
+                    <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-id">订单号 (选填)</label>
+                    <input type="text" id="order-id" placeholder="如：#20260129001">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">分类</label>
+                    <select id="category" required>
+                        <option value="营业收入">营业收入</option>
+                        <option value="食材采购">食材采购</option>
+                        <option value="酒水采购">酒水采购</option>
+                        <option value="人工成本">人工成本</option>
+                        <option value="房租水电">房租水电</option>
+                        <option value="设备维护">设备维护</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">日期</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="note">备注 (选填)</label>
+                    <input type="text" id="note" placeholder="例如：周末聚餐包场">
+                </div>
+
+                <button type="submit" class="btn btn-submit">保存记录</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
