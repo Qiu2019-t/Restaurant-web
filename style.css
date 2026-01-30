@@ -91,6 +91,12 @@ body {
     padding: 2rem;
 }
 
+@media (max-width: 768px) {
+    .app-container {
+        padding: 1rem;
+    }
+}
+
 /* Glass Components */
 .glass-panel {
     background: var(--glass-bg);
@@ -208,6 +214,16 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        gap: 1.25rem;
+    }
+    
+    .summary-cards {
+        gap: 1rem;
+    }
 }
 
 .card-icon {
@@ -502,18 +518,28 @@ body {
 @media (max-width: 768px) {
     .content-split {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .header {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+        align-items: center;
+        text-align: center;
+        padding: 1.25rem 1rem;
+        margin-bottom: 1.25rem;
+        gap: 1.25rem;
+    }
+
+    .logo-area {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .header-actions {
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
+        gap: 0.75rem;
     }
 }
 
