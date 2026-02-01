@@ -145,17 +145,30 @@ body {
     background: rgba(56, 189, 248, 0.1);
     padding: 0.5rem;
     border-radius: 12px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-area:hover .logo-icon {
+    transform: rotate(15deg) scale(1.1);
+    background: rgba(56, 189, 248, 0.2);
 }
 
 .header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 /* Buttons */
@@ -201,6 +214,33 @@ body {
     color: var(--accent-color);
     cursor: pointer;
     font-size: 0.9rem;
+}
+
+/* Annual Report Highlight Button */
+.btn-annual {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.1);
+}
+
+.btn-annual:hover {
+    background: rgba(236, 72, 153, 0.2);
+    border-color: #ec4899;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-annual i {
+    font-size: 1.2rem;
 }
 
 /* Dashboard Grid */
@@ -628,17 +668,31 @@ body {
     }
 
     .summary-cards {
-        grid-template-columns: 1fr;
-        /* Stack cards vertically on mobile */
+        grid-template-columns: repeat(3, 1fr);
+        /* Horizontal on mobile for report */
+        gap: 0.5rem;
     }
 
     .glass-card {
-        padding: 1.25rem;
+        padding: 0.75rem 0.5rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .card-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .card-info h3 {
+        font-size: 0.7rem;
     }
 
     .card-info .amount {
-        font-size: 1.5rem;
-        /* Slightly smaller amount */
+        font-size: 0.9rem;
+        /* Smaller amount for horizontal layout */
     }
 
     .chart-section {
