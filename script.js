@@ -270,7 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true, maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'right', labels: { color: '#f1f5f9' } },
+                    legend: {
+                        position: window.innerWidth < 768 ? 'bottom' : 'right',
+                        labels: { color: '#f1f5f9', padding: 15, boxWidth: 12 }
+                    },
                     title: { display: false }
                 }
             }
@@ -290,7 +293,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true, maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'right', labels: { color: '#f1f5f9' } },
+                    legend: {
+                        position: window.innerWidth < 768 ? 'bottom' : 'right',
+                        labels: { color: '#f1f5f9', padding: 15, boxWidth: 12 }
+                    },
                     title: { display: false }
                 }
             }
